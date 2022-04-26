@@ -1,0 +1,22 @@
+{
+  "name": "housekeeping-app-backend",
+  "version": "1.0.0",
+  "description": "Backend of a housekeeping app made for hotels",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholasgalipi/housekeeping-app-backend.git"
+  },
+  "author": "Nicholas Galipi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicholasgalipi/housekeeping-app-backend/issues"
+  },
+  "homepage": "https://github.com/nicholasgalipi/housekeeping-app-backend#readme",
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}
