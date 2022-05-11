@@ -4,11 +4,13 @@ const Room = require('../models/roomModel')
 
 
 const getAllRooms = async (req, res) => {
-
-    const arr = await Room.find();
-    console.log(arr)
-    res.status(200).send({test: "ready rooms"})
-    console.log(req.query)
+    try{
+        const arr = await Room.find();
+        res.status(200).json(arr)
+    }catch (err){
+        console.log(err)
+        res.status(400).send("Error, no room has been created on the db")
+    }
 }
 
 const newRoom = async (req, res) => {
@@ -21,10 +23,7 @@ const newRoom = async (req, res) => {
         roomSatus: roomStatus,
         obs: obs
  });
-
     res.send('POST new room ok!');
-
-
 }
 
 

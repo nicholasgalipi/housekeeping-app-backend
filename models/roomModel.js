@@ -5,6 +5,8 @@ const roomSchema = new mongoose.Schema({
     nameOfGuest: String,
     roomSatus: String,
     obs: String
+  },{
+    timestamps:true,
   });
 
   module.exports = mongoose.model('room', roomSchema)
