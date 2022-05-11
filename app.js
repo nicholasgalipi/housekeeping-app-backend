@@ -1,7 +1,10 @@
 const express = require('express')
+const dotenv = require('dotenv').config()
 const roomsRouter = require('./routes/rooms')
+const connectDB = require('./config/db')
 
 
+connectDB();
 
 const app = express()
 const port = 3000
