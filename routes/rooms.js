@@ -10,13 +10,13 @@ router.get('/allRooms', (req, res) => {
 
 //GET rooms with status ready for new guest
 router.get('/readyForGuest', (req, res) => {
-        res.status(200).send({test: "ready rooms"})
+        roomController.readyForGuest(req,res)
 })
 
 
 //GET rooms that need cleaning 
 router.get('/needCleaning', (req, res) => {
-    res.send({test: "need cleaning  rooms"})
+    roomController.needCleaning(req,res);
 })
 
 //post request creating a new for testing purposes
@@ -25,7 +25,7 @@ router.post('/newRoom', function (req, res) {
     roomController.newRoom(req, res)
 });
 
-app.put('/:id', function (req, res) {
+router.put('/:id', function (req, res) {
     res.send('Got a PUT request at /user');
 });
   
