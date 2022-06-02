@@ -35,12 +35,12 @@ const updateEmployeeAdd = async (req, res) => {
     const {roomsAssigned, name} = emp[0]
     const { roomID } = req.query;
 
-    const udpatedRooms = [roomID, ...roomsAssigned]
+    const updatedRooms = [roomID, ...roomsAssigned]
    
     try{
-        await Employee.replaceOne({ _id: req.params.id }, { 
+        await Employee.updateOne({ _id: req.params.id }, { 
             name: name,
-            roomsAssigned: udpatedRooms
+            roomsAssigned: updatedRooms
         });
         res.status(200).send(`Updated Employee ${req.params.id}`);
     }catch (err) {

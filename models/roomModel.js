@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 
 const roomSchema = new mongoose.Schema({
-    number: Number,
+    number: {type: Number, unique: true},
     nameOfGuest: String,
     roomStatus: String,
-    obs: String
-  },{
-    timestamps:true,
+    obs: String,
+    assigned: Boolean,
+    assignedTo: String
   });
 
   module.exports = mongoose.model('room', roomSchema)

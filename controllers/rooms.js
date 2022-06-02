@@ -1,5 +1,5 @@
 const Room = require('../models/roomModel')
-
+const Employee = require('../models/employeeModel')
 
 
 
@@ -13,10 +13,14 @@ const getAllRooms = async (req, res) => {
     }
 }
 
-
+const getOneRoom = async (req, res) => {
+    const arr = await Room.findOne({ _id: req.params.id });
+    
+    res.status(200).json(arr);
+}
 
 const needCleaning = async (req, res) => {
-    const arr = await Room.find({ roomStatus: "Waiting for cleaning" });
+    const arr = await Room.find({ roomStatus: "Waiting cleaning" });
     res.status(200).json(arr);
 }
 
@@ -44,16 +48,29 @@ const newRoom = async (req, res) => {
 const updateRoom = async (req, res) => {
     //const arr = await Room.find({ _id: req.params.id });
    
-    const {nameOfGuest, roomStatus, obs} = req.query;
+    const {nameOfGuest, roomStatus, obs, assigned, assignedTo} = req.query;
 
 
     try{
-        await Room.replaceOne({ _id: req.params.id }, { 
+        await Room.updateOne({ _id: req.params.id }, { 
             nameOfGuest: nameOfGuest,
             roomStatus: roomStatus,
-            obs: obs 
+            obs: obs,
+            assigned: assigned,
+            assignedTo: assignedTo
         });
-
+        
+        if(assignedTo){
+            const emp = await Employee.find({ _id: assignedTo });
+            const {roomsAssigned} = emp[0]
+            let updatedRooms =[]
+            if(roomsAssigned.includes(req.params.id) == false){
+                updatedRooms = [req.params.id, ...roomsAssigned]
+                await Employee.updateOne({ _id: assignedTo}, { 
+                    roomsAssigned: updatedRooms
+                });
+            }
+        }
         res.status(200).send(`Updated room ${req.params.id}`);
     }catch (err) {
         res.status(400).send("Something went wrong" + err)
@@ -65,4 +82,4 @@ const updateRoom = async (req, res) => {
 
  
 
-module.exports = {getAllRooms, newRoom, needCleaning, readyForGuest, updateRoom}
+module.exports = {getAllRooms, newRoom, needCleaning, readyForGuest, updateRoom, getOneRoom}

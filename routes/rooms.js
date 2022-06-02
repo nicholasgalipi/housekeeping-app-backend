@@ -8,6 +8,9 @@ router.get('/allRooms', (req, res) => {
     roomController.getAllRooms(req, res)
 })
 
+router.get('/:id', (req, res) => {
+    roomController.getOneRoom(req, res)
+})
 //GET rooms with status ready for new guest
 router.get('/readyForGuest', (req, res) => {
         roomController.readyForGuest(req,res)
