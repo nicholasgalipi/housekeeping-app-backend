@@ -41,5 +41,28 @@ const newRoom = async (req, res) => {
 
 
 
+const updateRoom = async (req, res) => {
+    //const arr = await Room.find({ _id: req.params.id });
+   
+    const {nameOfGuest, roomStatus, obs} = req.query;
 
-module.exports = {getAllRooms, newRoom, needCleaning, readyForGuest}
+
+    try{
+        await Room.replaceOne({ _id: req.params.id }, { 
+            nameOfGuest: nameOfGuest,
+            roomStatus: roomStatus,
+            obs: obs 
+        });
+
+        res.status(200).send(`Updated room ${req.params.id}`);
+    }catch (err) {
+        res.status(400).send("Something went wrong" + err)
+    }
+    
+
+
+}
+
+ 
+
+module.exports = {getAllRooms, newRoom, needCleaning, readyForGuest, updateRoom}

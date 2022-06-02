@@ -19,14 +19,18 @@ router.get('/needCleaning', (req, res) => {
     roomController.needCleaning(req,res);
 })
 
-//post request creating a new for testing purposes
+//post request creating a new room for testing purposes
 //http://localhost:3000/rooms/newRoom?number=123&nameOfGuest=John&roomStatus=occupied&obs=none
 router.post('/newRoom', function (req, res) {
     roomController.newRoom(req, res)
 });
 
-router.put('/:id', function (req, res) {
-    res.send('Got a PUT request at /user');
+
+//PUT request to update a room
+//http://localhost:3001/rooms/{roomid}/updateRoom?&nameOfGuest=John&roomStatus=Occupied
+router.put('/:id/updateRoom', function (req, res) {
+    roomController.updateRoom(req,res)
+
 });
   
 
