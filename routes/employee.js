@@ -6,6 +6,10 @@ router.get('/allEmployees', (req, res) => {
     employeeController.getAllEmployees(req, res);
 })
 
+router.get('/:id', (req, res) => {
+    employeeController.getEmployee(req, res);
+})
+
 
 
 // POST new employee, room id should be comma separated

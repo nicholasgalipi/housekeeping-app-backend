@@ -12,6 +12,20 @@ const getAllEmployees = async (req, res) =>{
 
 }
 
+const getEmployee= async (req, res) =>{
+    
+    
+    
+    try{
+        const arr = await Employee.findOne({ _id: req.params.id });
+        res.status(200).json(arr);
+    }catch (err){
+        console.log(err)
+        res.status(400).send("Error, no such employee")
+    }
+
+}
+
 
 const newEmployee = async (req, res) => {
 
@@ -73,4 +87,4 @@ const updateEmployeeRemove = async (req, res) => {
 
 }
 
-module.exports = {getAllEmployees, newEmployee,updateEmployeeAdd, updateEmployeeAdd, updateEmployeeRemove}
+module.exports = {getAllEmployees, getEmployee,newEmployee,updateEmployeeAdd, updateEmployeeAdd, updateEmployeeRemove}
