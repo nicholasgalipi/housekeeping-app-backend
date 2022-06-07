@@ -19,6 +19,14 @@ const getOneRoom = async (req, res) => {
     res.status(200).json(arr);
 }
 
+const getRoomByNumber = async (req, res) => {
+    const {roomNumber} = req.query;
+    console.log(req.query)
+    const arr = await Room.findOne({ number: roomNumber });
+    
+    res.status(200).json(arr);
+}
+
 const needCleaning = async (req, res) => {
     const arr = await Room.find({ roomStatus: "Waiting cleaning" });
     res.status(200).json(arr);
@@ -82,4 +90,4 @@ const updateRoom = async (req, res) => {
 
  
 
-module.exports = {getAllRooms, newRoom, needCleaning, readyForGuest, updateRoom, getOneRoom}
+module.exports = {getAllRooms, newRoom, needCleaning, readyForGuest, updateRoom, getOneRoom,getRoomByNumber}

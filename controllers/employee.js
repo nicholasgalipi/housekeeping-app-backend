@@ -1,5 +1,5 @@
 const Employee = require('../models/employeeModel')
-
+const Room = require('../models/roomModel')
 
 const getAllEmployees = async (req, res) =>{
     try{
@@ -17,8 +17,25 @@ const getEmployee= async (req, res) =>{
     
     
     try{
-        const arr = await Employee.findOne({ _id: req.params.id });
-        res.status(200).json(arr);
+        let employee = await Employee.findOne({ _id: req.params.id });
+        const allRooms = await Room.find();
+        let roomsID = employee.roomsAssigned
+        let roomsAssignedNumber = []
+        
+        for (let index = 0; index < roomsID.length; index++) {
+           let filter = allRooms.filter((room) => { return  roomsID[index] === room._id.valueOf()})
+           roomsAssignedNumber.push(filter[0])
+        }
+
+        roomsAssignedNumber = roomsAssignedNumber.map( (room) => {return room.number})
+        
+        final = {
+            _id: employee._id,
+            name: employee.name,
+            roomsAssigned: employee.roomsAssigned,
+            roomsAssignedNumber: roomsAssignedNumber
+        }       
+        res.status(200).json(final);
     }catch (err){
         console.log(err)
         res.status(400).send("Error, no such employee")
