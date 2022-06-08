@@ -91,7 +91,7 @@ const updateEmployeeRemove = async (req, res) => {
     const udpatedRooms = roomsAssigned.filter( (room) => { return room !== roomID})
 
     try{
-        await Employee.replaceOne({ _id: req.params.id }, { 
+        await Employee.updateOne({ _id: req.params.id }, { 
             name: name,
             roomsAssigned: udpatedRooms
         });
