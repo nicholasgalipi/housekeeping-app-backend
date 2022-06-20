@@ -13,11 +13,16 @@ router.get('/:id', (req, res) => {
 
 
 // POST new employee, room id should be comma separated
-//http://localhost:3001/employee/newEmployee?name=Alice&r//oomsAssigned=627c1a18d00e7a725ec27b27,627c1c47bfe8744b30422e04
+//http://localhost:3001/employee/newEmployee?name=Alice
 router.post('/newEmployee', function (req, res) {
     employeeController.newEmployee(req, res)
 });
 
+//Delete request to dele a employee from the DB
+//http://localhost:3001/employee/deleteEmployee?id=1234345
+router.delete('/deleteEmployee', function (req, res) {
+    employeeController.deleteEmployee(req,res)
+});
 
 //PUT request to update a employee assigned rooms
 //http://localhost:3001/employee/{employeeID}/addRoom?&roomID={roomid}

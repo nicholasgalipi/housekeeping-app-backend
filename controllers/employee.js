@@ -46,17 +46,29 @@ const getEmployee= async (req, res) =>{
 
 const newEmployee = async (req, res) => {
 
-    const {name, roomsAssigned} = req.query;
-    
-    const arr = roomsAssigned.split(',')
+    const {name} = req.query;
     
     await Employee.create({ 
         name: name, 
-        roomsAssigned: arr,
+        roomsAssigned: [],
 });
     res.send('POST new employee ok!');
 }
 
+const deleteEmployee = async (req, res) => {
+
+    const {id} = req.query;
+    
+    try{
+        await Employee.deleteOne({ 
+            _id: id
+        });
+        res.send('DELTE employee ok!');
+    } catch(err){
+        res.send('Error');
+    }
+    
+}
 
 const updateEmployeeAdd = async (req, res) => {
     const emp = await Employee.find({ _id: req.params.id });
@@ -104,4 +116,4 @@ const updateEmployeeRemove = async (req, res) => {
 
 }
 
-module.exports = {getAllEmployees, getEmployee,newEmployee,updateEmployeeAdd, updateEmployeeAdd, updateEmployeeRemove}
+module.exports = {deleteEmployee, getAllEmployees, getEmployee,newEmployee,updateEmployeeAdd, updateEmployeeAdd, updateEmployeeRemove}
